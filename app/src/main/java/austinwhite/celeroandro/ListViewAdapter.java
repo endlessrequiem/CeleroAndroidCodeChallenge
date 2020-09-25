@@ -1,27 +1,44 @@
 package austinwhite.celeroandro;
 
 import android.content.Context;
+import android.content.Intent;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
+import android.net.Uri;
+import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.RequiresApi;
+
 import com.squareup.picasso.Picasso;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 class ListViewAdapter extends BaseAdapter {
 
     private List<Customer> customers;
     private Context context;
+    protected LocationManager locationManager;
+    protected LocationListener locationListener;
 
 
-    public ListViewAdapter(Context context,List<Customer> customers){
+
+
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    public ListViewAdapter(Context context, List<Customer> customers){
         this.context = context;
         this.customers = customers;
+
     }
 
     @Override
@@ -35,9 +52,10 @@ class ListViewAdapter extends BaseAdapter {
     }
 
     @Override
-    public long getItemId(int visitOrder) {
-        return visitOrder;
+    public long getItemId(int pos) {
+        return pos;
     }
+
 
     @Override
     public View getView(int position, View view, ViewGroup viewGroup) {
@@ -46,21 +64,24 @@ class ListViewAdapter extends BaseAdapter {
             view= LayoutInflater.from(context).inflate(R.layout.model,viewGroup,false);
         }
 
+
         TextView customerName = view.findViewById(R.id.customerName);
         TextView customerIssue = view.findViewById(R.id.customerIssue);
         TextView customerNumber = view.findViewById(R.id.customerNumber);
         TextView customerCity = view.findViewById(R.id.customerAddress);
+        ImageButton GoogleMapButton = view.findViewById(R.id.GoogleMapButton);
         ImageView customerImageView = view.findViewById(R.id.customerImage);
 
-        final Customer thisCustomer= customers.get(position);
+        final Customer thisCustomer = customers.get(position);
 
         customerName.setText(thisCustomer.getName());
         customerIssue.setText(thisCustomer.getServiceReason());
         customerNumber.setText(thisCustomer.getPhoneNumber());
-        customerCity.setText(thisCustomer.getLocation().getAddress().getStreet()
-                + "\n" + thisCustomer.getLocation().getAddress().getCity()
-                + " " + thisCustomer.getLocation().getAddress().getState()
-                + "\n" + thisCustomer.getLocation().getAddress().getPostalCode()
+        customerCity.setText(String.format("%s\n%s %s\n%s",
+                thisCustomer.getLocation().getAddress().getStreet(),
+                thisCustomer.getLocation().getAddress().getCity() + ",",
+                thisCustomer.getLocation().getAddress().getState(),
+                thisCustomer.getLocation().getAddress().getPostalCode())
         );
 
         if(thisCustomer.getProfilePicture().getLarge() != null && thisCustomer.getProfilePicture().getLarge().length()>0)
@@ -72,6 +93,14 @@ class ListViewAdapter extends BaseAdapter {
         }
 
 
+        GoogleMapButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String uri = "http://maps.google.com/maps?daddr=" + thisCustomer.getLocation().getCoordinate().getLatitude() + "," + thisCustomer.getLocation().getCoordinate().getLongitude();
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
+                context.startActivity(intent);
+            }
+        });
 
 
         view.setOnClickListener(new View.OnClickListener() {

@@ -10,8 +10,8 @@ import austinwhite.celeroandro.jsonData.ProfilePicture;
 
 
 class Customer {
-    private Integer identifier;
-    private Integer visitOrder;
+    private int identifier;
+    int visitOrder;
     private String name;
     private String phoneNumber;
     private ProfilePicture profilePicture;
@@ -20,19 +20,19 @@ class Customer {
     private List<String> problemPictures;
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
-    public Integer getIdentifier() {
+    public int getIdentifier() {
         return identifier;
     }
 
-    public void setIdentifier(Integer identifier) {
+    public void setIdentifier(int identifier) {
         this.identifier = identifier;
     }
 
-    public Integer getVisitOrder() {
+    public int getVisitOrder() {
         return visitOrder;
     }
 
-    public void setVisitOrder(Integer visitOrder) {
+    public void setVisitOrder(int visitOrder) {
         this.visitOrder = visitOrder;
     }
 
@@ -95,5 +95,6 @@ class Customer {
     public String toString() {
         return new ToStringBuilder(this).append("identifier", identifier).append("visitOrder", visitOrder).append("name", name).append("phoneNumber", phoneNumber).append("profilePicture", profilePicture).append("location", location).append("serviceReason", serviceReason).append("problemPictures", problemPictures).append("additionalProperties", additionalProperties).toString();
     }
+
 
 }

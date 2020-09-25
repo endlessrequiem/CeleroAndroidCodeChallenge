@@ -1,15 +1,20 @@
 package austinwhite.celeroandro;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
+import java.util.ListIterator;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -19,10 +24,15 @@ public class MainActivity extends AppCompatActivity {
     private ListViewAdapter adapter;
     private ListView mListView;
     ProgressBar myProgressBar;
+    Customer order = new Customer();
 
+
+    @RequiresApi(api = Build.VERSION_CODES.N)
     private void populateListView(List<Customer> customerList) {
         mListView = findViewById(R.id.mListView);
         adapter = new ListViewAdapter(this,customerList);
+
+
         mListView.setAdapter(adapter);
     }
 
@@ -35,11 +45,13 @@ public class MainActivity extends AppCompatActivity {
         myProgressBar.setIndeterminate(true);
         myProgressBar.setVisibility(View.VISIBLE);
 
-        /*Create handle for the RetrofitInstance interface*/
         ApiInterface myAPIService = ApiClient.getClient().create(ApiInterface.class);
 
+
         Call<ArrayList<Customer>> call = myAPIService.getCustomer();
+
         call.enqueue(new Callback<ArrayList<Customer>>() {
+
 
             @Override
             public void onResponse(Call<ArrayList<Customer>> call, Response<ArrayList<Customer>> response) {
