@@ -1,4 +1,4 @@
-package austinwhite.celeroandro;
+package austinwhite.celeroandro.jsonData;
 import java.util.HashMap;
 import java.util.Map;
 import org.apache.commons.lang3.builder.ToStringBuilder;

@@ -5,9 +5,11 @@ import java.util.List;
 import java.util.Map;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
+import austinwhite.celeroandro.jsonData.Location;
+import austinwhite.celeroandro.jsonData.ProfilePicture;
+
 
 class Customer {
-
     private Integer identifier;
     private Integer visitOrder;
     private String name;
@@ -15,7 +17,7 @@ class Customer {
     private ProfilePicture profilePicture;
     private Location location;
     private String serviceReason;
-    private List<String> problemPictures = null;
+    private List<String> problemPictures;
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
     public Integer getIdentifier() {
