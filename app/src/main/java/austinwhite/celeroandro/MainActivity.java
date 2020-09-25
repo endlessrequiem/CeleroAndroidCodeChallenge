@@ -8,6 +8,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -37,16 +38,16 @@ public class MainActivity extends AppCompatActivity {
         /*Create handle for the RetrofitInstance interface*/
         ApiInterface myAPIService = ApiClient.getClient().create(ApiInterface.class);
 
-        Call<List<Customer>> call = myAPIService.getCustomer();
-        call.enqueue(new Callback<List<Customer>>() {
+        Call<ArrayList<Customer>> call = myAPIService.getCustomer();
+        call.enqueue(new Callback<ArrayList<Customer>>() {
 
             @Override
-            public void onResponse(Call<List<Customer>> call, Response<List<Customer>> response) {
+            public void onResponse(Call<ArrayList<Customer>> call, Response<ArrayList<Customer>> response) {
                 myProgressBar.setVisibility(View.GONE);
                 populateListView(response.body());
             }
             @Override
-            public void onFailure(Call<List<Customer>> call, Throwable throwable) {
+            public void onFailure(Call<ArrayList<Customer>> call, Throwable throwable) {
                 myProgressBar.setVisibility(View.GONE);
                 Toast.makeText(MainActivity.this, throwable.getMessage(), Toast.LENGTH_LONG).show();
             }

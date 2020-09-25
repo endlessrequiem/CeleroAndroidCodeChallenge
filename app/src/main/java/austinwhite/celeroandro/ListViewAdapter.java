@@ -18,6 +18,7 @@ class ListViewAdapter extends BaseAdapter {
     private List<Customer> customers;
     private Context context;
 
+
     public ListViewAdapter(Context context,List<Customer> customers){
         this.context = context;
         this.customers = customers;
@@ -47,21 +48,31 @@ class ListViewAdapter extends BaseAdapter {
 
         TextView customerName = view.findViewById(R.id.customerName);
         TextView customerIssue = view.findViewById(R.id.customerIssue);
+        TextView customerNumber = view.findViewById(R.id.customerNumber);
+        TextView customerCity = view.findViewById(R.id.customerAddress);
         ImageView customerImageView = view.findViewById(R.id.customerImage);
 
         final Customer thisCustomer= customers.get(position);
 
         customerName.setText(thisCustomer.getName());
         customerIssue.setText(thisCustomer.getServiceReason());
+        customerNumber.setText(thisCustomer.getPhoneNumber());
+        customerCity.setText(thisCustomer.getLocation().getAddress().getStreet()
+                + "\n" + thisCustomer.getLocation().getAddress().getCity()
+                + " " + thisCustomer.getLocation().getAddress().getState()
+                + "\n" + thisCustomer.getLocation().getAddress().getPostalCode()
+        );
 
-
-        if(thisCustomer.getThumbnailImage() != null && thisCustomer.getMediumImage().length()>0)
+        if(thisCustomer.getProfilePicture().getLarge() != null && thisCustomer.getProfilePicture().getLarge().length()>0)
         {
-            Picasso.get().load(thisCustomer.getMediumImage()).placeholder(R.drawable.ic_launcher_background).into(customerImageView);
+            Picasso.get().load(thisCustomer.getProfilePicture().getLarge()).placeholder(R.drawable.ic_launcher_background).into(customerImageView);
         }else {
-            Toast.makeText(context, "Empty Image URL", Toast.LENGTH_LONG).show();
+            Toast.makeText(context, "Empty Image URL", Toast.LENGTH_SHORT).show();
             Picasso.get().load(R.drawable.ic_launcher_background).into(customerImageView);
         }
+
+
+
 
         view.setOnClickListener(new View.OnClickListener() {
             @Override

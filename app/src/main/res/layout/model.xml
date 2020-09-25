@@ -1,25 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal" android:layout_width="match_parent"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/model_view"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:layout_margin="5dp"
+    android:orientation="horizontal"
     card_view:cardCornerRadius="10dp"
-    card_view:cardElevation="5dp"
-    android:layout_height="match_parent">
+    card_view:cardElevation="5dp">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <ImageView
+            android:id="@+id/customerImage"
             android:layout_width="150dp"
             android:layout_height="150dp"
-            android:id="@+id/customerImage"
             android:padding="5dp"
             android:src="@drawable/ic_launcher_background" />
 
         <TextView
+            android:id="@+id/customerAddress"
+            android:layout_width="249dp"
+            android:layout_height="52dp"
+            android:textSize="10dp"
+            android:layout_alignLeft="@id/customerImage"
+            android:layout_alignBottom="@id/customerNumber"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="153dp"
+            android:layout_marginTop="57dp"
+            android:layout_marginBottom="-49dp"
+            android:text="Small Town" />
+
+        <TextView
+            android:id="@+id/customerNumber"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@id/customerImage"
+            android:layout_alignBottom="@id/customerName"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="153dp"
+            android:layout_marginTop="37dp"
+            android:layout_marginBottom="-21dp"
+            android:text="(000) 000-0000" />
+
+        <TextView
             android:id="@+id/customerName"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_toRightOf="@+id/customerImage"
@@ -30,12 +58,16 @@
 
         <TextView
             android:id="@+id/customerIssue"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignBottom="@+id/customerImage"
+            android:layout_marginLeft="-1dp"
+            android:layout_marginBottom="8dp"
             android:layout_toRightOf="@+id/customerImage"
             android:padding="5dp"
+            android:text="Issue"
             android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textSize="15dp"
             android:textStyle="italic" />
 
     </RelativeLayout>
