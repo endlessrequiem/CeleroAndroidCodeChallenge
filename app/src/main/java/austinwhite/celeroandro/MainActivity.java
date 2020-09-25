@@ -53,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
         call.enqueue(new Callback<ArrayList<Customer>>() {
 
 
+            @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onResponse(Call<ArrayList<Customer>> call, Response<ArrayList<Customer>> response) {
                 myProgressBar.setVisibility(View.GONE);
