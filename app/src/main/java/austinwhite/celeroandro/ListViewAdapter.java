@@ -21,12 +21,15 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
+import static android.widget.Toast.*;
+
 class ListViewAdapter extends BaseAdapter {
 
     private List<Customer> customers;
     private Context context;
     protected LocationManager locationManager;
     protected LocationListener locationListener;
+    DatabaseHelper customerDB;
 
 
 
@@ -71,21 +74,34 @@ class ListViewAdapter extends BaseAdapter {
 
         final Customer thisCustomer = customers.get(position);
 
-        customerName.setText(thisCustomer.getName());
-        customerIssue.setText(thisCustomer.getServiceReason());
-        customerNumber.setText(thisCustomer.getPhoneNumber());
-        customerAddress.setText(String.format("%s\n%s %s\n%s",
+        int customerIdentifier = thisCustomer.getIdentifier();
+        int visitOrder = thisCustomer.getVisitOrder();
+
+        String name = thisCustomer.getName();
+        String serviceIssue = thisCustomer.getServiceReason();
+        String customerPhoneNumber = thisCustomer.getPhoneNumber();
+        String address = String.format("%s\n%s %s\n%s",
                 thisCustomer.getLocation().getAddress().getStreet(),
                 thisCustomer.getLocation().getAddress().getCity() + ",",
                 thisCustomer.getLocation().getAddress().getState(),
-                thisCustomer.getLocation().getAddress().getPostalCode())
-        );
+                thisCustomer.getLocation().getAddress().getPostalCode());
+        String customerPicture = thisCustomer.getProfilePicture().getLarge();
 
-        if(thisCustomer.getProfilePicture().getLarge() != null && thisCustomer.getProfilePicture().getLarge().length()>0)
+        final Double latitude = thisCustomer.getLocation().getCoordinate().getLatitude();
+        final Double longitude = thisCustomer.getLocation().getCoordinate().getLongitude();
+
+
+        customerName.setText(name);
+        customerIssue.setText(serviceIssue);
+        customerNumber.setText(customerPhoneNumber);
+        customerAddress.setText(address);
+
+
+        if(customerPicture != null && customerPicture.length()>0)
         {
-            Picasso.get().load(thisCustomer.getProfilePicture().getLarge()).placeholder(R.drawable.ic_launcher_background).into(customerImageView);
+            Picasso.get().load(customerPicture).placeholder(R.drawable.ic_launcher_background).into(customerImageView);
         }else {
-            Toast.makeText(context, "Empty Image URL", Toast.LENGTH_SHORT).show();
+            makeText(context, "Empty Image URL", LENGTH_SHORT).show();
             Picasso.get().load(R.drawable.ic_launcher_background).into(customerImageView);
         }
 
@@ -93,7 +109,7 @@ class ListViewAdapter extends BaseAdapter {
         GoogleMapButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String uri = "http://maps.google.com/maps?daddr=" + thisCustomer.getLocation().getCoordinate().getLatitude() + "," + thisCustomer.getLocation().getCoordinate().getLongitude();
+                String uri = "http://maps.google.com/maps?daddr=" + latitude + "," + longitude;
                 Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
                 context.startActivity(intent);
             }
@@ -109,6 +125,8 @@ class ListViewAdapter extends BaseAdapter {
 
         return view;
     }
+
+
 }
 
 
