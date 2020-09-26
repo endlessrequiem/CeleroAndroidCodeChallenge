@@ -2,6 +2,7 @@ package austinwhite.celeroandro;
 
 import android.content.Context;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.net.Uri;
@@ -79,7 +80,7 @@ class ListViewAdapter extends BaseAdapter {
         String name = thisCustomer.getName();
         String serviceIssue = thisCustomer.getServiceReason();
         String customerPhoneNumber = thisCustomer.getPhoneNumber();
-        String address = String.format("%s\n%s %s\n%s",
+        final String address = String.format("%s\n%s %s\n%s",
                 thisCustomer.getLocation().getAddress().getStreet(),
                 thisCustomer.getLocation().getAddress().getCity() + ",",
                 thisCustomer.getLocation().getAddress().getState(),
@@ -91,13 +92,15 @@ class ListViewAdapter extends BaseAdapter {
 
         final int customerIdentifier = thisCustomer.getIdentifier();
         final int visitOrder = thisCustomer.getVisitOrder();
-        AddData(customerIdentifier, visitOrder, name, customerPhoneNumber, serviceIssue, address, latitude, longitude, customerPicture);
 
 
         customerName.setText(name);
         customerIssue.setText(serviceIssue);
         customerNumber.setText(customerPhoneNumber);
         customerAddress.setText(address);
+
+        customerDB = new DatabaseHelper(context);
+        customerDB.addData(customerIdentifier, visitOrder, name, customerPhoneNumber, serviceIssue, address, latitude, longitude, customerPicture);
 
 
         if(customerPicture != null && customerPicture.length()>0)
@@ -122,34 +125,21 @@ class ListViewAdapter extends BaseAdapter {
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                /*
+                android.content.ClipboardManager clipboard = (android.content.ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
+                android.content.ClipData clip = android.content.ClipData.newPlainText("Copied Text", address);
+                clipboard.setPrimaryClip(clip);
+                Toast.makeText(context, "Address copied!", Toast.LENGTH_SHORT).show(); */
+
                 //Toast.makeText(context, thisCustomer.getName(), Toast.LENGTH_SHORT).show();
             }
         });
 
+
+
+
         return view;
     }
-
-    public void AddData(int customerIdentifier,
-                        int visitOrder, String name,
-                        String customerPhoneNumber,
-                        String serviceIssue,
-                        String address,
-                        double latitude,
-                        double longitude,
-                        String customerPicture) {
-
-        boolean insertData = customerDB.addData(customerIdentifier, visitOrder,
-        name, customerPhoneNumber, serviceIssue,
-        address, latitude, longitude, customerPicture);
-
-        if (insertData = true) {
-            Toast.makeText(context, "It works", Toast.LENGTH_SHORT).show();
-        } else {
-            Toast.makeText(context, "Not working", Toast.LENGTH_SHORT).show();
-        }
-    }
-
-
 
 }
 

@@ -27,7 +27,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public DatabaseHelper(Context context) {
         super(context, MYDATABASE_NAME, null, 1);
-        SQLiteDatabase db = this.getWritableDatabase();
 
     }
 
@@ -35,8 +34,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String createTable = "CREATE TABLE " + MYDATABASE_TABLE + " (ID INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                " ITEM1 TEXT)";
+        String createTable = "CREATE TABLE MY_TABLE (ID INTEGER PRIMARY KEY AUTOINCREMENT, Name TEXT)";
         db.execSQL(createTable);
     }
 
@@ -47,7 +45,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     }
 
-    public boolean addData(int customerIdentifier,
+    public void addData(int customerIdentifier,
                         int visitOrder,
                         String name,
                         String customerPhoneNumber,
@@ -88,10 +86,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         Log.d(TAG, "addData: Adding: " + customerPicture + " to " + MYDATABASE_TABLE);
 
 
-
-       long result = db.insert(MYDATABASE_TABLE, null, contentValues);
-
-       return result != -1;
     }
     public Cursor getListContents(){
         SQLiteDatabase db = this.getWritableDatabase();
