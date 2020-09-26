@@ -65,7 +65,7 @@ class ListViewAdapter extends BaseAdapter {
         TextView customerName = view.findViewById(R.id.customerName);
         TextView customerIssue = view.findViewById(R.id.customerIssue);
         TextView customerNumber = view.findViewById(R.id.customerNumber);
-        TextView customerCity = view.findViewById(R.id.customerAddress);
+        TextView customerAddress = view.findViewById(R.id.customerAddress);
         ImageButton GoogleMapButton = view.findViewById(R.id.GoogleMapButton);
         ImageView customerImageView = view.findViewById(R.id.customerImage);
 
@@ -74,7 +74,7 @@ class ListViewAdapter extends BaseAdapter {
         customerName.setText(thisCustomer.getName());
         customerIssue.setText(thisCustomer.getServiceReason());
         customerNumber.setText(thisCustomer.getPhoneNumber());
-        customerCity.setText(String.format("%s\n%s %s\n%s",
+        customerAddress.setText(String.format("%s\n%s %s\n%s",
                 thisCustomer.getLocation().getAddress().getStreet(),
                 thisCustomer.getLocation().getAddress().getCity() + ",",
                 thisCustomer.getLocation().getAddress().getState(),
@@ -103,7 +103,7 @@ class ListViewAdapter extends BaseAdapter {
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(context, thisCustomer.getName(), Toast.LENGTH_SHORT).show();
+                //Toast.makeText(context, thisCustomer.getName(), Toast.LENGTH_SHORT).show();
             }
         });
 

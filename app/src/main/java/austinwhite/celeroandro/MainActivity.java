@@ -37,6 +37,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
+
         final ProgressBar myProgressBar= findViewById(R.id.myProgressBar);
         myProgressBar.setIndeterminate(true);
         myProgressBar.setVisibility(View.VISIBLE);
