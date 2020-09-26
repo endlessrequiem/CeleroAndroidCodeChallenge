@@ -9,6 +9,7 @@ import android.util.Log;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
+    public static final String TAG = "DatabaseHelper";
     public static final String MYDATABASE_NAME = "CUSTOMER_INFO";
     public static final String MYDATABASE_TABLE = "MY_TABLE";
     public static final int MYDATABASE_VERSION = 1;
@@ -17,10 +18,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String COL_Name = "Name";
     public static final String COL_Number = "Number";
     public static final String COL_ServiceIssue = "ServiceIssue";
-    public static final String COL_StreetAddress = "StreetAddress";
-    public static final String COL_CityAddress = "CityAddress";
-    public static final String COL_StateAddress = "StateAddress";
-    public static final String COL_PostalCodeAddress = "PostalCodeAddress";
+    public static final String COL_CustomerAddress = "CustomerAddress";
     public static final String COL_Latitude = "Latitude";
     public static final String COL_Longitude = "Longitude";
     public static final String COL_CustomerPicture = "CustomerPicture";
@@ -30,7 +28,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public DatabaseHelper(Context context) {
         super(context, MYDATABASE_NAME, null, 1);
         SQLiteDatabase db = this.getWritableDatabase();
-
 
     }
 
@@ -50,7 +47,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     }
 
-    public void addData(int customerIdentifier,
+    public boolean addData(int customerIdentifier,
                         int visitOrder,
                         String name,
                         String customerPhoneNumber,
@@ -62,19 +59,39 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     ) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
+
         contentValues.put(COL_CustomerIdentifier, customerIdentifier);
+        Log.d(TAG, "addData: Adding: " + customerIdentifier + " to " + MYDATABASE_TABLE);
+
         contentValues.put(COL_VisitOrder, visitOrder);
+        Log.d(TAG, "addData: Adding: " + visitOrder + " to " + MYDATABASE_TABLE);
+
         contentValues.put(COL_Name, name);
+        Log.d(TAG, "addData: Adding: " + name + " to " + MYDATABASE_TABLE);
+
         contentValues.put(COL_Number,customerPhoneNumber);
+        Log.d(TAG, "addData: Adding: " + customerPhoneNumber + " to " + MYDATABASE_TABLE);
+
         contentValues.put(COL_ServiceIssue, serviceIssue);
-        contentValues.put(COL_StreetAddress, address);
+        Log.d(TAG, "addData: Adding: " + serviceIssue + " to " + MYDATABASE_TABLE);
+
+        contentValues.put(COL_CustomerAddress, address);
+        Log.d(TAG, "addData: Adding: " + address + " to " + MYDATABASE_TABLE);
+
         contentValues.put(COL_Latitude, latitude);
+        Log.d(TAG, "addData: Adding: " + latitude + " to " + MYDATABASE_TABLE);
+
         contentValues.put(COL_Longitude, longitude);
+        Log.d(TAG, "addData: Adding: " + longitude + " to " + MYDATABASE_TABLE);
+
         contentValues.put(COL_CustomerPicture, customerPicture);
+        Log.d(TAG, "addData: Adding: " + customerPicture + " to " + MYDATABASE_TABLE);
 
 
-        db.insert(MYDATABASE_TABLE, null, contentValues);
 
+       long result = db.insert(MYDATABASE_TABLE, null, contentValues);
+
+       return result != -1;
     }
     public Cursor getListContents(){
         SQLiteDatabase db = this.getWritableDatabase();
