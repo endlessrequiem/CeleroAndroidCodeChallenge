@@ -18,6 +18,9 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
+    private List<Customer> customers;
+    DatabaseHelper customerDB;
+
     private ListViewAdapter adapter;
     private ListView mListView;
     ProgressBar myProgressBar;
@@ -48,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
 
         Call<ArrayList<Customer>> call = myAPIService.getCustomer();
 
+
         call.enqueue(new Callback<ArrayList<Customer>>() {
 
 
@@ -64,4 +68,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
+
+
 }

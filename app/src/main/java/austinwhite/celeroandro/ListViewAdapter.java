@@ -74,8 +74,7 @@ class ListViewAdapter extends BaseAdapter {
 
         final Customer thisCustomer = customers.get(position);
 
-        int customerIdentifier = thisCustomer.getIdentifier();
-        int visitOrder = thisCustomer.getVisitOrder();
+
 
         String name = thisCustomer.getName();
         String serviceIssue = thisCustomer.getServiceReason();
@@ -89,6 +88,10 @@ class ListViewAdapter extends BaseAdapter {
 
         final Double latitude = thisCustomer.getLocation().getCoordinate().getLatitude();
         final Double longitude = thisCustomer.getLocation().getCoordinate().getLongitude();
+
+        final int customerIdentifier = thisCustomer.getIdentifier();
+        final int visitOrder = thisCustomer.getVisitOrder();
+        AddData(customerIdentifier, visitOrder, name, customerPhoneNumber, serviceIssue, address, latitude, longitude, customerPicture);
 
 
         customerName.setText(name);
@@ -125,6 +128,27 @@ class ListViewAdapter extends BaseAdapter {
 
         return view;
     }
+
+    public void AddData(int customerIdentifier,
+                        int visitOrder, String name,
+                        String customerPhoneNumber,
+                        String serviceIssue,
+                        String address,
+                        double latitude,
+                        double longitude,
+                        String customerPicture) {
+
+        boolean insertData = customerDB.addData(customerIdentifier, visitOrder,
+        name, customerPhoneNumber, serviceIssue,
+        address, latitude, longitude, customerPicture);
+
+        if (insertData = true) {
+            Toast.makeText(context, "It works", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(context, "Not working", Toast.LENGTH_SHORT).show();
+        }
+    }
+
 
 
 }
