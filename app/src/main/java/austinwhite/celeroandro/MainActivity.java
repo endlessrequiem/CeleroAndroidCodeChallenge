@@ -11,10 +11,7 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
-import java.util.ListIterator;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -24,7 +21,6 @@ public class MainActivity extends AppCompatActivity {
     private ListViewAdapter adapter;
     private ListView mListView;
     ProgressBar myProgressBar;
-    Customer order = new Customer();
 
 
     @RequiresApi(api = Build.VERSION_CODES.N)

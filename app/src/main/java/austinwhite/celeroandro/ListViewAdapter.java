@@ -2,7 +2,6 @@ package austinwhite.celeroandro;
 
 import android.content.Context;
 import android.content.Intent;
-import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.net.Uri;
@@ -20,8 +19,6 @@ import androidx.annotation.RequiresApi;
 
 import com.squareup.picasso.Picasso;
 
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 class ListViewAdapter extends BaseAdapter {
