@@ -93,14 +93,14 @@ class ListViewAdapter extends BaseAdapter {
         final int customerIdentifier = thisCustomer.getIdentifier();
         final int visitOrder = thisCustomer.getVisitOrder();
 
+        customerDB = new DatabaseHelper(context);
+        customerDB.addData(customerIdentifier, visitOrder, name, customerPhoneNumber, serviceIssue, address, latitude, longitude, customerPicture);
+
 
         customerName.setText(name);
         customerIssue.setText(serviceIssue);
         customerNumber.setText(customerPhoneNumber);
         customerAddress.setText(address);
-
-        customerDB = new DatabaseHelper(context);
-        customerDB.addData(customerIdentifier, visitOrder, name, customerPhoneNumber, serviceIssue, address, latitude, longitude, customerPicture);
 
 
         if(customerPicture != null && customerPicture.length()>0)
@@ -125,7 +125,8 @@ class ListViewAdapter extends BaseAdapter {
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                /*
+                /* when clicked the address is copied to the clipboard, commented out because the google map button streamlines the whole process
+
                 android.content.ClipboardManager clipboard = (android.content.ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
                 android.content.ClipData clip = android.content.ClipData.newPlainText("Copied Text", address);
                 clipboard.setPrimaryClip(clip);
