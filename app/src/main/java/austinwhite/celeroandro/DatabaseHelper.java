@@ -7,13 +7,11 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-import java.util.concurrent.atomic.AtomicReference;
-
 public class DatabaseHelper extends SQLiteOpenHelper {
 
     public static final String TAG = "DatabaseHelper";
     public static final String MYDATABASE_NAME = "CUSTOMER_INFO";
-    public static final String MYDATABASE_TABLE = "MY_TABLE";
+    public static final String MYDATABASE_TABLE = "CUSTOMER_TABLE";
     public static final int MYDATABASE_VERSION = 1;
     public static final String COL_CustomerIdentifier = "CustomerIdentifier";
     public static final String COL_VisitOrder = "VisitOrder";
@@ -28,7 +26,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
 
     public DatabaseHelper(Context context) {
-        super(context, MYDATABASE_NAME, null, 1);
+        super(context, MYDATABASE_NAME, null, MYDATABASE_VERSION);
 
     }
 
@@ -61,39 +59,39 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         ContentValues contentValues = new ContentValues();
 
         contentValues.put(COL_CustomerIdentifier, customerIdentifier);
-        Log.d(TAG, "addData: Adding: " + customerIdentifier + " to " + MYDATABASE_TABLE);
+        Log.d(TAG, "addData: Adding: " + customerIdentifier + " to " + COL_CustomerIdentifier);
 
         contentValues.put(COL_VisitOrder, visitOrder);
-        Log.d(TAG, "addData: Adding: " + visitOrder + " to " + MYDATABASE_TABLE);
+        Log.d(TAG, "addData: Adding: " + visitOrder + " to " + COL_VisitOrder);
 
         contentValues.put(COL_Name, name);
-        Log.d(TAG, "addData: Adding: " + name + " to " + MYDATABASE_TABLE);
+        Log.d(TAG, "addData: Adding: " + name + " to " + COL_Name);
 
         contentValues.put(COL_Number,customerPhoneNumber);
-        Log.d(TAG, "addData: Adding: " + customerPhoneNumber + " to " + MYDATABASE_TABLE);
+        Log.d(TAG, "addData: Adding: " + customerPhoneNumber + " to " + COL_Number);
 
         contentValues.put(COL_ServiceIssue, serviceIssue);
-        Log.d(TAG, "addData: Adding: " + serviceIssue + " to " + MYDATABASE_TABLE);
+        Log.d(TAG, "addData: Adding: " + serviceIssue + " to " + COL_ServiceIssue);
 
         contentValues.put(COL_CustomerAddress, address);
-        Log.d(TAG, "addData: Adding: " + address + " to " + MYDATABASE_TABLE);
+        Log.d(TAG, "addData: Adding: " + address + " to " + COL_CustomerAddress);
 
         contentValues.put(COL_Latitude, latitude);
-        Log.d(TAG, "addData: Adding: " + latitude + " to " + MYDATABASE_TABLE);
+        Log.d(TAG, "addData: Adding: " + latitude + " to " + COL_Latitude);
 
         contentValues.put(COL_Longitude, longitude);
-        Log.d(TAG, "addData: Adding: " + longitude + " to " + MYDATABASE_TABLE);
+        Log.d(TAG, "addData: Adding: " + longitude + " to " + COL_Longitude);
 
         contentValues.put(COL_CustomerPicture, customerPicture);
-        Log.d(TAG, "addData: Adding: " + customerPicture + " to " + MYDATABASE_TABLE);
+        Log.d(TAG, "addData: Adding: " + customerPicture + " to " + COL_CustomerPicture);
 
 
     }
     public Cursor getData(){
         SQLiteDatabase db = this.getWritableDatabase();
-        String query = "SELECT * FROM MY_TABLE";
-        AtomicReference<Cursor> data = new AtomicReference<>(db.rawQuery(query, null));
-        return data.get();
+        String query = "SELECT * FROM CUSTOMER_TABLE";
+        Cursor data = db.rawQuery(query, null);
+        return data;
     }
 
 
