@@ -2,7 +2,6 @@ package austinwhite.celeroandro;
 
 import android.content.Context;
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.net.Uri;
@@ -14,7 +13,6 @@ import android.widget.BaseAdapter;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 
@@ -22,7 +20,8 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-import static android.widget.Toast.*;
+import static android.widget.Toast.LENGTH_SHORT;
+import static android.widget.Toast.makeText;
 
 class ListViewAdapter extends BaseAdapter {
 

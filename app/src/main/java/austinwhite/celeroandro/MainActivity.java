@@ -20,7 +20,6 @@ import retrofit2.Response;
 public class MainActivity extends AppCompatActivity {
     private List<Customer> customers;
     DatabaseHelper customerDB;
-
     private ListViewAdapter adapter;
     private ListView mListView;
     ProgressBar myProgressBar;
@@ -30,7 +29,6 @@ public class MainActivity extends AppCompatActivity {
     private void populateListView(List<Customer> customerList) {
         mListView = findViewById(R.id.mListView);
         adapter = new ListViewAdapter(this,customerList);
-
 
         mListView.setAdapter(adapter);
     }

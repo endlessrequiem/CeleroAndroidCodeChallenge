@@ -7,6 +7,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import java.util.concurrent.atomic.AtomicReference;
+
 public class DatabaseHelper extends SQLiteOpenHelper {
 
     public static final String TAG = "DatabaseHelper";
@@ -89,9 +91,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
     public Cursor getData(){
         SQLiteDatabase db = this.getWritableDatabase();
-        String query = "SELECT * FROM " + MYDATABASE_TABLE;
-        Cursor data = db.rawQuery(query, null);
-        return data;
+        String query = "SELECT * FROM MYDATABASE_TABLE";
+        AtomicReference<Cursor> data = new AtomicReference<>(db.rawQuery(query, null));
+        return data.get();
     }
+
+
+
 
 }
