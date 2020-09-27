@@ -11,7 +11,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public static final String TAG = "DatabaseHelper";
     public static final String MYDATABASE_NAME = "CUSTOMER_INFO";
-    public static final String MYDATABASE_TABLE = "CUSTOMER_TABLE";
+    public static final String CUSTOMER_TABLE = "CUSTOMER_TABLE";
     public static final int MYDATABASE_VERSION = 1;
     public static final String COL_CustomerIdentifier = "CustomerIdentifier";
     public static final String COL_VisitOrder = "VisitOrder";
@@ -33,13 +33,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String createTable = "CREATE TABLE MY_TABLE (ID INTEGER PRIMARY KEY AUTOINCREMENT, Name TEXT)";
+        String createTable = "CREATE TABLE CUSTOMER_TABLE (ID INTEGER PRIMARY KEY AUTOINCREMENT, Name TEXT)";
         db.execSQL(createTable);
+        Log.e("onCreate","onCreate Activated");
+
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("create table " + MYDATABASE_TABLE + " ( Id INTEGER PRIMARY KEY,NAME TEXT ) ");
+        db.execSQL("create table " + CUSTOMER_TABLE + " ( Id INTEGER PRIMARY KEY,NAME TEXT ) ");
         Log.e("DB CREATE","DATABASE CREATE");
 
     }
@@ -84,11 +86,18 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         contentValues.put(COL_CustomerPicture, customerPicture);
         Log.d(TAG, "addData: Adding: " + customerPicture + " to " + COL_CustomerPicture);
 
-
+        db.close();
     }
     public Cursor getData(){
         SQLiteDatabase db = this.getWritableDatabase();
         String query = "SELECT * FROM CUSTOMER_TABLE";
+        return db.rawQuery(query, null);
+    }
+
+    public Cursor getItemID(String name){
+        SQLiteDatabase db = this.getWritableDatabase();
+        String query = "SELECT " + COL_Name + " FROM " + CUSTOMER_TABLE +
+                " WHERE " + COL_Name + " = '" + name + "'";
         Cursor data = db.rawQuery(query, null);
         return data;
     }

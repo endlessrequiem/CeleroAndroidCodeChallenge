@@ -2,6 +2,7 @@ package austinwhite.celeroandro;
 
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.net.Uri;
@@ -13,6 +14,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 
@@ -31,7 +33,7 @@ class ListViewAdapter extends BaseAdapter {
     private Context context;
     protected LocationManager locationManager;
     protected LocationListener locationListener;
-    DatabaseHelper customerDB;
+    DatabaseHelper customerDB = new DatabaseHelper(context);
 
 
 
@@ -77,10 +79,9 @@ class ListViewAdapter extends BaseAdapter {
         final Customer thisCustomer = customers.get(position);
 
 
-
         String name = thisCustomer.getName();
         String serviceIssue = thisCustomer.getServiceReason();
-        String customerPhoneNumber = thisCustomer.getPhoneNumber();
+        String customerPhoneNumber = thisCustomer.getPhoneNumber(); //this can be highlighted in case the customer needs to be called quickly
         final String address = String.format("%s\n%s %s\n%s",
                 thisCustomer.getLocation().getAddress().getStreet(),
                 thisCustomer.getLocation().getAddress().getCity() + ",",
@@ -97,11 +98,15 @@ class ListViewAdapter extends BaseAdapter {
         customerDB = new DatabaseHelper(context);
         customerDB.addData(customerIdentifier, visitOrder, name, customerPhoneNumber, serviceIssue, address, latitude, longitude, customerPicture);
 
+        Cursor data = customerDB.getData();
+        Cursor id = customerDB.getItemID(name);
 
-        customerName.setText(name);
+        customerName.setText(String.valueOf(id));
         customerIssue.setText(serviceIssue);
         customerNumber.setText(customerPhoneNumber);
         customerAddress.setText(address);
+
+        customerDB.close();
 
 
         if(customerPicture != null && customerPicture.length()>0)
@@ -126,14 +131,14 @@ class ListViewAdapter extends BaseAdapter {
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                /* when clicked the address is copied to the clipboard, commented out because the google map button streamlines the whole process
+                //Some of the GPS coordinates weren't giving exact location, so this is a back-up in case the coordinates don't work right
+                //Addresses are also able to be highlighted, so the user can highlight the address and directly open google maps through that
 
                 android.content.ClipboardManager clipboard = (android.content.ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
                 android.content.ClipData clip = android.content.ClipData.newPlainText("Copied Text", address);
                 clipboard.setPrimaryClip(clip);
-                Toast.makeText(context, "Address copied!", Toast.LENGTH_SHORT).show(); */
+                Toast.makeText(context, "Address copied!", Toast.LENGTH_SHORT).show();
 
-                //Toast.makeText(context, thisCustomer.getName(), Toast.LENGTH_SHORT).show();
             }
         });
 

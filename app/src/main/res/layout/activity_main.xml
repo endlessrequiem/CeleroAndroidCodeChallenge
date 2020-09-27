@@ -11,7 +11,7 @@
         android:id="@+id/headerTxt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#000000"
+        android:background="#03A9F4"
         android:gravity="center_horizontal"
         android:padding="5dp"
         android:text="Customer List"

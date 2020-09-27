@@ -82,7 +82,7 @@
             android:layout_marginLeft="1dp"
             android:layout_toRightOf="@+id/customerName"
             android:backgroundTint="#00FFFFFF"
-            android:tint="#2196F3"
+            android:tint="#03A9F4"
             card_view:srcCompat="@android:drawable/ic_dialog_map" />
 
     </RelativeLayout>
