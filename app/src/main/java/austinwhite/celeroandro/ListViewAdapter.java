@@ -20,6 +20,8 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
+import austinwhite.celeroandro.Database.DatabaseHelper;
+
 import static android.widget.Toast.LENGTH_SHORT;
 import static android.widget.Toast.makeText;
 

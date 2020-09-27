@@ -1,4 +1,4 @@
-package austinwhite.celeroandro;
+package austinwhite.celeroandro.Database;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -29,7 +29,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         super(context, MYDATABASE_NAME, null, MYDATABASE_VERSION);
 
     }
-
 
 
     @Override
