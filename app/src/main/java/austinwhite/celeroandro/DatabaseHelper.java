@@ -91,7 +91,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
     public Cursor getData(){
         SQLiteDatabase db = this.getWritableDatabase();
-        String query = "SELECT * FROM MYDATABASE_TABLE";
+        String query = "SELECT * FROM MY_TABLE";
         AtomicReference<Cursor> data = new AtomicReference<>(db.rawQuery(query, null));
         return data.get();
     }
