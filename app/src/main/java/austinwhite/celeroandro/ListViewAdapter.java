@@ -98,10 +98,9 @@ class ListViewAdapter extends BaseAdapter {
         customerDB = new DatabaseHelper(context);
         customerDB.addData(customerIdentifier, visitOrder, name, customerPhoneNumber, serviceIssue, address, latitude, longitude, customerPicture);
 
-        Cursor data = customerDB.getData();
-        Cursor id = customerDB.getItemID(name);
+        Cursor data = customerDB.getData(name);
 
-        customerName.setText(String.valueOf(id));
+        //customerName.setText(data.toString());
         customerIssue.setText(serviceIssue);
         customerNumber.setText(customerPhoneNumber);
         customerAddress.setText(address);
@@ -141,9 +140,6 @@ class ListViewAdapter extends BaseAdapter {
 
             }
         });
-
-
-
 
         return view;
     }

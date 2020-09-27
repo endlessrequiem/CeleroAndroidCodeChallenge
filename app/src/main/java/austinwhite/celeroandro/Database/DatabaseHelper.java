@@ -88,19 +88,29 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         db.close();
     }
-    public Cursor getData(){
-        SQLiteDatabase db = this.getWritableDatabase();
-        String query = "SELECT * FROM CUSTOMER_TABLE";
-        return db.rawQuery(query, null);
-    }
-
-    public Cursor getItemID(String name){
+    public Cursor getData(String name){
         SQLiteDatabase db = this.getWritableDatabase();
         String query = "SELECT " + COL_Name + " FROM " + CUSTOMER_TABLE +
                 " WHERE " + COL_Name + " = '" + name + "'";
+
         Cursor data = db.rawQuery(query, null);
+
+        Log.d(TAG, "getData: Getting " + name + " resulted in " + data.toString());
+
         return data;
     }
+
+    /*
+    public Cursor getItemID(String name){
+        SQLiteDatabase db = this.getWritableDatabase();
+        String query = ;
+        Cursor data = db.rawQuery(query, null);
+        Log.d(TAG, "getItemID Query on " + name + " resulted in " + data.toString());
+
+        return data;
+    }
+
+     */
 
 
 
