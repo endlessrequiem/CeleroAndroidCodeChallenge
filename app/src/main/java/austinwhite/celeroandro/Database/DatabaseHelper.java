@@ -88,6 +88,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         db.close();
     }
+
+    //this is where I was having trouble, I was trying to see if I could just get the customer name, then go from there
     public Cursor getData(String name){
         SQLiteDatabase db = this.getWritableDatabase();
         String query = "SELECT " + COL_Name + " FROM " + CUSTOMER_TABLE +
@@ -99,20 +101,5 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         return data;
     }
-
-    /*
-    public Cursor getItemID(String name){
-        SQLiteDatabase db = this.getWritableDatabase();
-        String query = ;
-        Cursor data = db.rawQuery(query, null);
-        Log.d(TAG, "getItemID Query on " + name + " resulted in " + data.toString());
-
-        return data;
-    }
-
-     */
-
-
-
 
 }

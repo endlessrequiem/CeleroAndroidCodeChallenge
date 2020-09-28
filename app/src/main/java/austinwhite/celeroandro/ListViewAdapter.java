@@ -95,17 +95,24 @@ class ListViewAdapter extends BaseAdapter {
         final int customerIdentifier = thisCustomer.getIdentifier();
         final int visitOrder = thisCustomer.getVisitOrder();
 
-        customerDB = new DatabaseHelper(context);
-        customerDB.addData(customerIdentifier, visitOrder, name, customerPhoneNumber, serviceIssue, address, latitude, longitude, customerPicture);
+        /*
+        the idea here was to add the json data into the SQLite db and then retrieve that string from the DB, the code below was able
+        to write to the database, but I had a hard time figuring out how to retrieve the data to fill in the fields below. Also it writes all
+        json data to the DB 3 times over, which would need to be fixed along with not adding data that's already there. The priority was grabbing the data
+        first
+        */
 
-        Cursor data = customerDB.getData(name);
+        //customerDB = new DatabaseHelper(context);
+        //customerDB.addData(customerIdentifier, visitOrder, name, customerPhoneNumber, serviceIssue, address, latitude, longitude, customerPicture);
 
-        //customerName.setText(data.toString());
+        //Cursor data = customerDB.getData(name);
+
+        customerName.setText(name);
         customerIssue.setText(serviceIssue);
         customerNumber.setText(customerPhoneNumber);
         customerAddress.setText(address);
 
-        customerDB.close();
+        //customerDB.close();
 
 
         if(customerPicture != null && customerPicture.length()>0)
@@ -130,8 +137,9 @@ class ListViewAdapter extends BaseAdapter {
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Some of the GPS coordinates weren't giving exact location, so this is a back-up in case the coordinates don't work right
-                //Addresses are also able to be highlighted, so the user can highlight the address and directly open google maps through that
+                /* Some of the GPS coordinates were exactly the same as other customers, so this is a back-up in case the coordinates don't work right
+                Addresses are also able to be highlighted, so the user can highlight the address and directly open google maps through that
+                */
 
                 android.content.ClipboardManager clipboard = (android.content.ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
                 android.content.ClipData clip = android.content.ClipData.newPlainText("Copied Text", address);
