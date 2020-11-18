@@ -44,11 +44,8 @@ public class MainActivity extends AppCompatActivity {
         myProgressBar.setVisibility(View.VISIBLE);
 
         ApiInterface myAPIService = ApiClient.getClient().create(ApiInterface.class);
-
-
         Call<ArrayList<Customer>> call = myAPIService.getCustomer();
-
-
+        
         call.enqueue(new Callback<ArrayList<Customer>>() {
 
 
